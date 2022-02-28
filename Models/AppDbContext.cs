@@ -10,7 +10,7 @@ namespace Books_WebAPI.Controllers
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(
-                @"Data Source=NIGHTWALKER\SQLEXPRESS;Initial Catalog=Book_DB;Integrated Security=True;Pooling=False");
+                @"Data Source=NIGHTWALKER\SQLEXPRESS;database=Book_DB;Integrated Security=True;Pooling=False");
         }
     }
 }

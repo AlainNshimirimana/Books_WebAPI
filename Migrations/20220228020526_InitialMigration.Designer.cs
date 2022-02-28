@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Books_WebAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220228013108_InitialMigration")]
+    [Migration("20220228020526_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
