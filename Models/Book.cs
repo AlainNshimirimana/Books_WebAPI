@@ -5,8 +5,8 @@ namespace Books_WebAPI.Models
     {
         [Key]
         public int Id { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string bookTitle { get; set; }
+        public string firstName { get; set; } = string.Empty;
+        public string lastName { get; set; } = string.Empty;
+        public string bookTitle { get; set; } = string.Empty;
     }
 }

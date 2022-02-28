@@ -1,6 +1,7 @@
+global using Books_WebAPI.Models;
 using Books_WebAPI.Controllers;
-using Books_WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
