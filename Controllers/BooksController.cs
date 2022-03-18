@@ -36,6 +36,23 @@ namespace Books_WebAPI.Controllers
             var book = _db.Books.SingleAsync(b => b.Id == id);
             return Ok(await book);
         }
+        // Update a book
+        [HttpPut]
+        public ActionResult<List<Book>> PutBook(Book request)
+        {
+            var book = _db.Books.Single(b => b.Id == request.Id);
+            if(book == null)
+            {
+                return BadRequest("Book not found");
+            }
+            // new/updated information for the book
+            book.firstName = request.firstName;
+            book.lastName = request.lastName;
+            book.bookTitle = request.bookTitle;
+            _db.Books.Update(book); // add the updates to the database
+            _db.SaveChanges(); // save database
+            return Ok(book);
+        }
 
         [HttpPost]
         public async Task<ActionResult<List<Book>>> AddBook(Book book)
