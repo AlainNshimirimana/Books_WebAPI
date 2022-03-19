@@ -18,8 +18,8 @@ namespace Books_WebAPI.Controllers
         [HttpPost]
         public ActionResult<List<Book>> AddBook(Book newBook)
         {
-            _db.Books.Add(newBook);
-            _db.SaveChanges();
+            _db.Books.Add(newBook); //adds a new book to the database
+            _db.SaveChanges(); //save the changes 
             return Ok(newBook);
         }
 
@@ -64,7 +64,7 @@ namespace Books_WebAPI.Controllers
         [HttpDelete("{id}")]
         public ActionResult<List<Book>> DeleteBook(int id)
         {
-            //if database is empty just return BadRequest
+            //if database is empty just return BadRequest or id is <= zero
             if (_db.Books == null || id <= 0)
             {
                 return BadRequest("Invalid Book id");
