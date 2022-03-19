@@ -25,14 +25,13 @@ namespace Books_WebAPI.Controllers
 
         //Get all books => api/book
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBook()
+        public async Task<ActionResult<List<Book>>> GetAllBook()
         {
-            var books = _db.Books.ToList();
             return Ok(await _db.Books.ToListAsync());
         }
         // Get a specific book [HttpGet("{id}")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public ActionResult<Book> GetSingleBook(int id)
         {
             //if database is empty just return BadRequest
             if (_db.Books == null || id <= 0)
@@ -41,12 +40,12 @@ namespace Books_WebAPI.Controllers
             }
 
             //else find the book with matching id
-            var book = _db.Books.SingleAsync(b => b.Id == id);
-            return Ok(await book);
+            var book = _db.Books.Single(b => b.Id == id);
+            return Ok(book);
         }
         // Update a book
         [HttpPut]
-        public ActionResult<List<Book>> PutBook(Book request)
+        public ActionResult<List<Book>> UpdateBook(Book request)
         {
             var book = _db.Books.Single(b => b.Id == request.Id);
             if(book == null)
@@ -60,6 +59,21 @@ namespace Books_WebAPI.Controllers
             _db.Books.Update(book); // add the updates to the database
             _db.SaveChanges(); // save database
             return Ok(book);
+        }
+        // Delete a Book
+        [HttpDelete("{id}")]
+        public ActionResult<List<Book>> DeleteBook(int id)
+        {
+            //if database is empty just return BadRequest
+            if (_db.Books == null || id <= 0)
+            {
+                return BadRequest("Invalid Book id");
+            }
+            var book = _db.Books.Single(b => b.Id == id);
+            _db.Books.Remove(book);
+            _db.SaveChanges();
+            return Ok(book);
+
         }
     }
 }
