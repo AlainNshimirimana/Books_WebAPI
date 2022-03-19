@@ -14,6 +14,14 @@ namespace Books_WebAPI.Controllers
         {
             _db = appDbContext;
         }
+        // Create/Add a new book
+        [HttpPost]
+        public ActionResult<List<Book>> AddBook(Book newBook)
+        {
+            _db.Books.Add(newBook);
+            _db.SaveChanges();
+            return Ok(newBook);
+        }
 
         //Get all books => api/book
         [HttpGet]
@@ -27,9 +35,9 @@ namespace Books_WebAPI.Controllers
         public async Task<ActionResult<Book>> GetBook(int id)
         {
             //if database is empty just return BadRequest
-            if (_db.Books == null)
+            if (_db.Books == null || id <= 0)
             {
-                return BadRequest("Book Not Found");
+                return BadRequest("Invalid Book id");
             }
 
             //else find the book with matching id
@@ -51,12 +59,6 @@ namespace Books_WebAPI.Controllers
             book.bookTitle = request.bookTitle;
             _db.Books.Update(book); // add the updates to the database
             _db.SaveChanges(); // save database
-            return Ok(book);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<List<Book>>> AddBook(Book book)
-        {
             return Ok(book);
         }
     }
